@@ -1,6 +1,7 @@
-Stemmer package for Go programmer language.
+Stemmer package for Go
+======================
 
-Includes porter2 sub-package which implements English (Porter2) stemmer, as described by <http://snowball.tartarus.org/algorithms/english/stemmer.html>
+Includes `porter2` sub-package which implements English (Porter2) stemmer, as described by <http://snowball.tartarus.org/algorithms/english/stemmer.html>
 
 Installation
 -------------
