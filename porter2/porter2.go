@@ -8,7 +8,7 @@ package porter2
 
 import (
 	"strings"
-	"stemmer"
+	"github.com/dchest/stemmer"
 )
 
 // Stemmer is a global, shared instance of Porter2 English stemmer.
