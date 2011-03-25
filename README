@@ -3,6 +3,12 @@ Stemmer package for Go programmer language.
 Includes porter2 sub-package which implements English (Porter2) stemmer, as described by
 http://snowball.tartarus.org/algorithms/english/stemmer.html
 
+INSTALLATION
+
+    goinstall github.com/dchest/stemmer/porter2 
+
+This will install both the top-level "stemmer" and "stemmer/porter2" packages.
+
 EXAMPLE
 
 import "stemmer/porter2"
