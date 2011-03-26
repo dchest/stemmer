@@ -5,6 +5,6 @@
 // Package stemmer declares Stemmer interface.
 package stemmer
 
-type Stemmer interface{
+type Stemmer interface {
 	Stem(s string) string
 }
