@@ -11,13 +11,13 @@ import (
 )
 
 func TestStem(t *testing.T) {
-	voc, err := os.Open("test_voc.txt", os.O_RDONLY, 0600)
+	voc, err := os.Open("test_voc.txt")
 	if err != nil {
 		t.Errorf("%s", err)
 		return
 	}
 	defer voc.Close()
-	output, err := os.Open("test_output.txt", os.O_RDONLY, 0600)
+	output, err := os.Open("test_output.txt")
 	if err != nil {
 		t.Errorf("%s", err)
 		return
