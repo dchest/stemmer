@@ -20,7 +20,7 @@ func init() {
 	Stemmer = englishStemmer(true)
 }
 
-func suffixPos(s, suf []int) int {
+func suffixPos(s, suf []rune) int {
 	if len(s) < len(suf) {
 		return -1
 	}
@@ -34,7 +34,7 @@ func suffixPos(s, suf []int) int {
 	return len(s) - len(suf)
 }
 
-func removeSuffix(s, suf []int) []int {
+func removeSuffix(s, suf []rune) []rune {
 	i := suffixPos(s, suf)
 	if i != -1 {
 		return s[:i]
@@ -42,15 +42,15 @@ func removeSuffix(s, suf []int) []int {
 	return s
 }
 
-func isVowel(rune int) bool {
-	switch rune {
+func isVowel(r rune) bool {
+	switch r {
 	case 'a', 'e', 'i', 'o', 'u', 'y':
 		return true
 	}
 	return false
 }
 
-func hasVowelBeforePos(s []int, pos int) bool {
+func hasVowelBeforePos(s []rune, pos int) bool {
 	for i := pos; i >= 0; i-- {
 		if isVowel(s[i]) {
 			return true
@@ -65,7 +65,7 @@ var rExceptions = []string{
 	"arsen",
 }
 
-func calcR(s []int) int {
+func calcR(s []rune) int {
 	for i := 0; i < len(s)-1; i++ {
 		if isVowel(s[i]) && !isVowel(s[i+1]) {
 			return i + 2
@@ -74,7 +74,7 @@ func calcR(s []int) int {
 	return len(s)
 }
 
-func getR1R2(s []int) (r1, r2 int) {
+func getR1R2(s []rune) (r1, r2 int) {
 	for _, v := range rExceptions {
 		if strings.HasPrefix(string(s), v) {
 			r1 = len(v)
@@ -87,7 +87,7 @@ func getR1R2(s []int) (r1, r2 int) {
 	return
 }
 
-func endsWithDouble(s []int) bool {
+func endsWithDouble(s []rune) bool {
 	if len(s) < 2 {
 		return false
 	}
@@ -101,7 +101,7 @@ func endsWithDouble(s []int) bool {
 	return false
 }
 
-func isShortWord(s []int) bool {
+func isShortWord(s []rune) bool {
 	if r1, _ := getR1R2(s); r1 != len(s) {
 		return false
 	}
@@ -122,109 +122,109 @@ func isShortWord(s []int) bool {
 	return false
 }
 
-var step1bWords = [][]int{
-	[]int("ingly"),
-	[]int("edly"),
-	[]int("ing"),
-	[]int("ed"),
+var step1bWords = [][]rune{
+	[]rune("ingly"),
+	[]rune("edly"),
+	[]rune("ing"),
+	[]rune("ed"),
 }
 
-var step2Words = [][]int{
-	[]int("fulness"), // ful
-	[]int("ousness"), // ous
-	[]int("iveness"), // ive
-	[]int("ational"), // ate
-	[]int("ization"), // ize
-	[]int("tional"),  // tion
-	[]int("biliti"),  // ble
-	[]int("lessli"),  // less
-	[]int("fulli"),   // ful
-	[]int("ousli"),   // ous
-	[]int("iviti"),   // ive
-	[]int("alism"),   // al
-	[]int("ation"),   // ate
-	[]int("entli"),   // ent
-	[]int("aliti"),   // al
-	[]int("enci"),    // ence
-	[]int("anci"),    // ance
-	[]int("abli"),    // able
-	[]int("izer"),    // ize
-	[]int("ator"),    // ate
-	[]int("alli"),    // al
-	[]int("bli"),     // ble
+var step2Words = [][]rune{
+	[]rune("fulness"), // ful
+	[]rune("ousness"), // ous
+	[]rune("iveness"), // ive
+	[]rune("ational"), // ate
+	[]rune("ization"), // ize
+	[]rune("tional"),  // tion
+	[]rune("biliti"),  // ble
+	[]rune("lessli"),  // less
+	[]rune("fulli"),   // ful
+	[]rune("ousli"),   // ous
+	[]rune("iviti"),   // ive
+	[]rune("alism"),   // al
+	[]rune("ation"),   // ate
+	[]rune("entli"),   // ent
+	[]rune("aliti"),   // al
+	[]rune("enci"),    // ence
+	[]rune("anci"),    // ance
+	[]rune("abli"),    // able
+	[]rune("izer"),    // ize
+	[]rune("ator"),    // ate
+	[]rune("alli"),    // al
+	[]rune("bli"),     // ble
 	//"ogi",   // replace with og if preceded by l -- handled later in code
 	//"li"     // delete if preceded by a valid li-ending  -- handled later code
 }
 
-var step2Reps = [][]int{
-	[]int("ful"),
-	[]int("ous"),
-	[]int("ive"),
-	[]int("ate"),
-	[]int("ize"),
-	[]int("tion"),
-	[]int("ble"),
-	[]int("less"),
-	[]int("ful"),
-	[]int("ous"),
-	[]int("ive"),
-	[]int("al"),
-	[]int("ate"),
-	[]int("ent"),
-	[]int("al"),
-	[]int("ence"),
-	[]int("ance"),
-	[]int("able"),
-	[]int("ize"),
-	[]int("ate"),
-	[]int("al"),
-	[]int("ble"),
+var step2Reps = [][]rune{
+	[]rune("ful"),
+	[]rune("ous"),
+	[]rune("ive"),
+	[]rune("ate"),
+	[]rune("ize"),
+	[]rune("tion"),
+	[]rune("ble"),
+	[]rune("less"),
+	[]rune("ful"),
+	[]rune("ous"),
+	[]rune("ive"),
+	[]rune("al"),
+	[]rune("ate"),
+	[]rune("ent"),
+	[]rune("al"),
+	[]rune("ence"),
+	[]rune("ance"),
+	[]rune("able"),
+	[]rune("ize"),
+	[]rune("ate"),
+	[]rune("al"),
+	[]rune("ble"),
 	//"og"  -- handled later in code
 	// ""   -- handled later in code
 }
 
-var step3Words = [][]int{
-	[]int("ational"), // ate
-	[]int("tional"),  // tion
-	[]int("alize"),   // al
-	[]int("icate"),   // ic
-	[]int("iciti"),   // ic
-	[]int("ical"),    // ic
-	[]int("ful"),     // (delete)
-	[]int("ness"),    // (delete)
+var step3Words = [][]rune{
+	[]rune("ational"), // ate
+	[]rune("tional"),  // tion
+	[]rune("alize"),   // al
+	[]rune("icate"),   // ic
+	[]rune("iciti"),   // ic
+	[]rune("ical"),    // ic
+	[]rune("ful"),     // (delete)
+	[]rune("ness"),    // (delete)
 	//ative -- handled later in code
 }
 
-var step3Reps = [][]int{
-	[]int("ate"),
-	[]int("tion"),
-	[]int("al"),
-	[]int("ic"),
-	[]int("ic"),
-	[]int("ic"),
-	[]int{},
-	[]int{},
-	[]int{},
+var step3Reps = [][]rune{
+	[]rune("ate"),
+	[]rune("tion"),
+	[]rune("al"),
+	[]rune("ic"),
+	[]rune("ic"),
+	[]rune("ic"),
+	[]rune{},
+	[]rune{},
+	[]rune{},
 }
 
-var step4Words = [][]int{
-	[]int("ement"),
-	[]int("able"),
-	[]int("ible"),
-	[]int("ance"),
-	[]int("ence"),
-	[]int("ment"),
-	[]int("ant"),
-	[]int("ent"),
-	[]int("ism"),
-	[]int("ate"),
-	[]int("iti"),
-	[]int("ous"),
-	[]int("ive"),
-	[]int("ize"),
-	[]int("al"),
-	[]int("er"),
-	[]int("ic"),
+var step4Words = [][]rune{
+	[]rune("ement"),
+	[]rune("able"),
+	[]rune("ible"),
+	[]rune("ance"),
+	[]rune("ence"),
+	[]rune("ment"),
+	[]rune("ant"),
+	[]rune("ent"),
+	[]rune("ism"),
+	[]rune("ate"),
+	[]rune("iti"),
+	[]rune("ous"),
+	[]rune("ive"),
+	[]rune("ize"),
+	[]rune("al"),
+	[]rune("er"),
+	[]rune("ic"),
 	// "ion" -- delete if preceded by s or t
 }
 
@@ -272,7 +272,7 @@ func (stm englishStemmer) Stem(word string) string {
 	if rep, ex := exceptions1[word]; ex {
 		return rep
 	}
-	s := []int(word)
+	s := []rune(word)
 	if len(s) <= 2 {
 		return word
 	}
@@ -290,21 +290,21 @@ func (stm englishStemmer) Stem(word string) string {
 	r1, r2 := getR1R2(s)
 
 	// Step 0
-	s = removeSuffix(s, []int("'s'"))
-	s = removeSuffix(s, []int("'s"))
-	s = removeSuffix(s, []int("'"))
+	s = removeSuffix(s, []rune("'s'"))
+	s = removeSuffix(s, []rune("'s"))
+	s = removeSuffix(s, []rune("'"))
 
 	// Step 1a
-	if i := suffixPos(s, []int("sses")); i != -1 {
+	if i := suffixPos(s, []rune("sses")); i != -1 {
 		// sses
 		// replace by ss
-		s = append(s[:i], []int("ss")...)
+		s = append(s[:i], []rune("ss")...)
 		goto step1b
 	}
 	{
-		i := suffixPos(s, []int("ied"))
+		i := suffixPos(s, []rune("ied"))
 		if i == -1 {
-			i = suffixPos(s, []int("ies"))
+			i = suffixPos(s, []rune("ies"))
 		}
 		if i != -1 {
 			// ied+   ies*
@@ -312,19 +312,19 @@ func (stm englishStemmer) Stem(word string) string {
 			// otherwise by ie (so ties -> tie, cries -> cri)
 			s = s[:i]
 			if len(s) > 1 {
-				s = append(s, int('i'))
+				s = append(s, rune('i'))
 			} else {
-				s = append(s, []int("ie")...)
+				s = append(s, []rune("ie")...)
 			}
 			goto step1b
 		}
 	}
-	if suffixPos(s, []int("us")) != -1 || suffixPos(s, []int("ss")) != -1 {
+	if suffixPos(s, []rune("us")) != -1 || suffixPos(s, []rune("ss")) != -1 {
 		// do nothing
 		goto step1b
 	}
 
-	if i := suffixPos(s, []int("s")); i != -1 {
+	if i := suffixPos(s, []rune("s")); i != -1 {
 		if len(s) >= 3 && hasVowelBeforePos(s, len(s)-3) {
 			s = s[:i]
 		}
@@ -336,10 +336,10 @@ step1b:
 		return string(s)
 	}
 	// Step 1b
-	for _, suf := range [][]int{[]int("eed"), []int("eedly")} {
+	for _, suf := range [][]rune{[]rune("eed"), []rune("eedly")} {
 		if i := suffixPos(s, suf); i != -1 {
 			if i >= r1 {
-				s = append(s[:i], []int("ee")...)
+				s = append(s[:i], []rune("ee")...)
 			}
 			goto step1c
 		}
@@ -352,9 +352,9 @@ step1b:
 			} else {
 				goto step1c
 			}
-			if suffixPos(s, []int("at")) != -1 || suffixPos(s, []int("bl")) != -1 ||
-				suffixPos(s, []int("iz")) != -1 {
-				s = append(s, int('e'))
+			if suffixPos(s, []rune("at")) != -1 || suffixPos(s, []rune("bl")) != -1 ||
+				suffixPos(s, []rune("iz")) != -1 {
+				s = append(s, rune('e'))
 				goto step1c
 			}
 			if endsWithDouble(s) {
@@ -362,7 +362,7 @@ step1b:
 				goto step1c
 			}
 			if isShortWord(s) {
-				s = append(s, int('e'))
+				s = append(s, rune('e'))
 			}
 			goto step1c
 		}
@@ -390,13 +390,13 @@ step1c:
 			goto step3
 		}
 	}
-	if i := suffixPos(s, []int("ogi")); i != -1 && i >= r1 {
+	if i := suffixPos(s, []rune("ogi")); i != -1 && i >= r1 {
 		if s[i-1] == 'l' {
-			s = append(s[:i], []int("og")...)
+			s = append(s[:i], []rune("og")...)
 		}
 		goto step3
 	}
-	if i := suffixPos(s, []int("li")); i != -1 && i >= r1 {
+	if i := suffixPos(s, []rune("li")); i != -1 && i >= r1 {
 		// valid li-ending: c   d   e   g   h   k   m   n   r   t
 		switch s[i-1] {
 		case 'c', 'd', 'e', 'g', 'h', 'k', 'm', 'n', 'r', 't':
@@ -413,7 +413,7 @@ step3:
 			goto step4
 		}
 	}
-	if i := suffixPos(s, []int("ative")); i != -1 && i >= r2 {
+	if i := suffixPos(s, []rune("ative")); i != -1 && i >= r2 {
 		s = s[:i]
 		goto step4
 	}
@@ -428,7 +428,7 @@ step4:
 			goto step5
 		}
 	}
-	if i := suffixPos(s, []int("ion")); i != -1 && i >= r2 {
+	if i := suffixPos(s, []rune("ion")); i != -1 && i >= r2 {
 		switch s[i-1] {
 		case 's', 't':
 			s = s[:i]
