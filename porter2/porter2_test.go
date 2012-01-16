@@ -5,9 +5,10 @@
 package porter2
 
 import (
-	"testing"
 	"bufio"
+	"io"
 	"os"
+	"testing"
 )
 
 func TestStem(t *testing.T) {
@@ -29,7 +30,7 @@ func TestStem(t *testing.T) {
 		vocline, err := bvoc.ReadString('\n')
 		if err != nil {
 			switch err {
-			case os.EOF:
+			case io.EOF:
 				return
 			default:
 				t.Errorf("%s", err)
@@ -39,7 +40,7 @@ func TestStem(t *testing.T) {
 		outline, err := bout.ReadString('\n')
 		if err != nil {
 			switch err {
-			case os.EOF:
+			case io.EOF:
 				return
 			default:
 				t.Errorf("%s", err)
