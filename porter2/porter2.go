@@ -12,13 +12,9 @@ import (
 )
 
 // Stemmer is a global, shared instance of Porter2 English stemmer.
-var Stemmer stemmer.Stemmer
+var Stemmer stemmer.Stemmer = englishStemmer(true)
 
 type englishStemmer bool
-
-func init() {
-	Stemmer = englishStemmer(true)
-}
 
 func suffixPos(s, suf []rune) int {
 	if len(s) < len(suf) {
