@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-// Package porter2 implements English (Porter2) stemmer, as described by
+// Package porter2 implements English (Porter2) stemmer, as described in
 // http://snowball.tartarus.org/algorithms/english/stemmer.html
 package porter2
 
@@ -261,7 +261,7 @@ var exceptions2 = map[string]bool{
 	"succeed": true,
 }
 
-// Stem returns a stemmed string word
+// Stem returns a stemmed string word.
 func (stm englishStemmer) Stem(word string) string {
 	word = strings.ToLower(word)
 	// Is it exception?
