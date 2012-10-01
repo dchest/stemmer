@@ -1,27 +1,56 @@
 Stemmer package for Go
 ======================
 
-Includes `porter2` sub-package which implements English (Porter2) stemmer, as described by <http://snowball.tartarus.org/algorithms/english/stemmer.html>
+Stemmer package provides an interface for stemmers and includes English and
+German stemmers as sub-packages:
+
+ - `porter2` sub-package implements English (Porter2) stemmer as described in
+   <http://snowball.tartarus.org/algorithms/english/stemmer.html>
+
+ - `german` sub-package implements German stemmer as described in
+   <http://snowball.tartarus.org/algorithms/german/stemmer.html>
+
 
 Installation
 -------------
 
+English stemmer:
+
     go get github.com/dchest/stemmer/porter2
 
-This will install both the top-level `stemmer` and `stemmer/porter2` packages.
+German stemmer:
+
+    go get github.com/dchest/stemmer/german
+
+This will also install the top-level `stemmer` package.
 
 Example
 -------
 
-    import "github.com/dchest/stemmer/porter2"
+    import (
+        "github.com/dchest/stemmer/porter2"
+        "github.com/dchest/stemmer/german"
+    )
 
-    st := porter2.Stemmer
-    st.Stem("delicious")   // => delici
-    st.Stem("deliciously") // => delici
+    // English.
+    eng := porter2.Stemmer
+    eng.Stem("delicious")   // => delici
+    eng.Stem("deliciously") // => delici
+
+    // German.
+    ger := german.Stemmer
+    ger.Stem("abhängen")   // => abhang
+    ger.Stem("abhängiger") // => abhang
+
 
 Tests
 -----
 
-porter2:
+Included `test_output.txt` and `test_voc.txt` are from the referenced original
+implementations, used only when running tests with `go test`.
 
-Included `test_output.txt` and `test_voc.txt` are from [the original implementation](http://snowball.tartarus.org/algorithms/english/stemmer.html), used only when running tests with `go test`.
+
+License
+-------
+
+2-clause BSD-like (see LICENSE and AUTHORS files).
