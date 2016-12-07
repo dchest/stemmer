@@ -51,9 +51,9 @@ Example
     ger.Stem("abhängiger") // => abhang
 
     // Dutch.
-    ger := dutch.Stemmer
-    ger.Stem("lichamelijke") // => licham
-    ger.Stem("opglimpende")  // => opglimp
+    dt := dutch.Stemmer
+    dt.Stem("lichamelijke") // => licham
+    dt.Stem("opglimpende")  // => opglimp
 
 Tests
 -----
